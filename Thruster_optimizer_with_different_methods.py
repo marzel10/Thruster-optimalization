@@ -27,7 +27,7 @@ def print_results(input, res):
         f"N_shots = {res[14]} (number of shots [-])\n"
         f"M_prop = {res[15]} (total propellant mass [g])"
     )
-
+print("haha") 
 
 class ThrusterOptimizer:
     def __init__(self, params, consts, closed_form=False):
