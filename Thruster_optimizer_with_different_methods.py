@@ -27,7 +27,7 @@ def print_results(input, res):
         f"N_shots = {res[14]} (number of shots [-])\n"
         f"M_prop = {res[15]} (total propellant mass [g])"
     )
-print("haha") 
+
 
 class ThrusterOptimizer:
     def __init__(self, params, consts, closed_form=False):
@@ -260,6 +260,7 @@ with open("sim results.txt",'w') as file:
 
             file.write(f"this is the end of the method {m[i]}\n\n")
 
+    print("there is a change")
     parameters["w"]=[0.01,10,2.5]
     file.write("after adding width as a degree of freedom\n\n")
     for i in range(2):
