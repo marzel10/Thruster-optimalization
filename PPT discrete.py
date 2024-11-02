@@ -34,13 +34,14 @@ constants = {
 
 THR=ThrusterOptimizer1(parameters,constants) #seting up the thruster optimizer
 ah=np.linspace(parameters["h"][0],parameters["h"][1],200) #creating an array with 200 values for height starting from 0.5 and ending on 5
-aw=np.linspace(parameters["w"][0],parameters["w"][1],200) #doing the same with width
+aw=np.linspace(parameters["w"][0],parameters["w"][1],1) #doing the same with width
 Isp=[] #an array where specific impulses (for each pair of h and w from ah and aw) will be stored
 ISP=0 #maximal specific impulse
 H=0 #height at maximal Isp
 W=0 #width at maximal Isp
 ah1=[] # an array where every height inputed into get_resulst is stored (in right order)
 aw1=[] # equivalent of ah1 for the width
+
 
 for i in range(len(ah)): #for every h from ah
     for j in range(len(aw)): #for every w from aw
@@ -60,7 +61,7 @@ param=[H,W,35,100,3]
 opt=THR.get_results1(param) # calculate specifications for optimum parameters
 print_results(param,opt) #print all specifications for optimum parameters
 
-
+print("Hej a tutaj maria z github")
 #making a scatter plot of every result
 
 fig = plt.figure()
