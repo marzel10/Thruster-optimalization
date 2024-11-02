@@ -42,7 +42,7 @@ W=0 #width at maximal Isp
 ah1=[] # an array where every height inputed into get_resulst is stored (in right order)
 aw1=[] # equivalent of ah1 for the width
 
-
+print("Siema, tutaj Maria z zaswiatow")
 for i in range(len(ah)): #for every h from ah
     for j in range(len(aw)): #for every w from aw
         pa=[ah[i],aw[j],35,100,3] # thruster parameters
@@ -62,6 +62,7 @@ opt=THR.get_results1(param) # calculate specifications for optimum parameters
 print_results(param,opt) #print all specifications for optimum parameters
 
 print("Hej a tutaj maria z github")
+print("A co z Maria z pycharm?")
 #making a scatter plot of every result
 
 fig = plt.figure()
