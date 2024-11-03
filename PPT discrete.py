@@ -61,7 +61,7 @@ param=[H,W,35,100,3]
 opt=THR.get_results1(param) # calculate specifications for optimum parameters
 print_results(param,opt) #print all specifications for optimum parameters
 
-print("Hej a tutaj maria z github")
+
 
 print("to znowu ja")
 #making a scatter plot of every result
