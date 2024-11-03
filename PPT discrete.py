@@ -63,6 +63,7 @@ print_results(param,opt) #print all specifications for optimum parameters
 
 print("Hej a tutaj maria z github")
 print("A co z Maria z pycharm?")
+print("to znowu ja")
 #making a scatter plot of every result
 
 fig = plt.figure()
