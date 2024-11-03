@@ -61,21 +61,4 @@ param=[H,W,35,100,3]
 opt=THR.get_results1(param) # calculate specifications for optimum parameters
 print_results(param,opt) #print all specifications for optimum parameters
 
-
-#making a scatter plot of every result
-
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-
-# Generate some random data
-x = np.random.rand(100)
-y = np.random.rand(100)
-z = np.random.rand(100)
-
-ax.scatter(ah1, aw1, Isp)
-
-ax.set_xlabel('Height')
-ax.set_ylabel('Width')
-ax.set_zlabel('Specific Impulse')
-
-plt.show()
+print("HHAH")
