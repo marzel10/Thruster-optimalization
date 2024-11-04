@@ -11,7 +11,7 @@ parameters = {
     "L": [100, 100, 100],  # effetive inductance [nH]
     "E": [3, 3, 3],  # stored energy [J]
 }
-
+print("change")
 constants = {
     "C1": 0.0214,
     "C2": 0.134,
