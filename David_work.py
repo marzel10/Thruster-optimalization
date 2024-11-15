@@ -70,7 +70,9 @@ class ThrusterOptimizer1:
         fm = I_EM * 1e-6 / (um * m_bit * 1e-9)  # electromagnetic mass fraction
         fI = I_EM / I_bit  # electromagnetic impulse fraction
         eta = (I_bit * 1e-6) ** 2 / (2 * m_bit * 1e-9 * E)
-
+        # Thrust calculation
+        F_gd = 0.184* h/(w^(2/n-1)*J^(n/2)  #gas dynamics thrust
+        F_em= 0.5*L_p*J^2 # EM thrust
         # Not sure what to do about plasma inductance
         Rp = (L_p * 10 ** -6 * um / Rm) * 1e3  # plasma resistance
         R0 = R - Rp  # neccessary circuit resistance for effective resistance R
