@@ -28,7 +28,7 @@ def print_results(input, res):
         f"M_prop = {res[15]} (total propellant mass [g])"
     )
 
-eijwedwjehjkw
+
 class ThrusterOptimizer1:
     def __init__(self, params, consts, closed_form=False):
         self.params = params
