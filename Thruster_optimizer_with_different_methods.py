@@ -1,3 +1,5 @@
+#This programme performs an optimalization of height and width to maximize specific impulse using scipy.optimize.minimize function
+
 import numpy as np
 import scipy as sp
 import matplotlib.pyplot as plt
@@ -62,7 +64,7 @@ class ThrusterOptimizer:
         m_bit = C1 * (h / w) * (E / R) * 1e3
         L_p = nu0 / np.pi * (3 / 2 + np.log((h / w) / (1 + (c / w))))  # inductance gradient
         Int_GD = sp.integrate.quad(lambda t: (get_RLC_current(t) ** 2) ** (1 / n), 0,  10e-5, limit=1000)[0]
-        print(R, L, E,Int_GD)
+
         I_EM = E / R * (L_p / 2) * 1e3
         I_GD = C3 * 1e-9 * h / w ** (2 / n - 1) * Int_GD * 1e7
         I_bit = I_EM + I_GD

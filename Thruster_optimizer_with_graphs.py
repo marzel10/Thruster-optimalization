@@ -1,3 +1,9 @@
+'''
+The output of this programme are graphs investigating correlations between
+maximal (upper bound for) discharge energy,optimal discharge energy and the optimal height
+It uses scipy.optimize.minimize (this function is claimed to not work)
+'''
+
 import numpy as np
 import scipy as sp
 import matplotlib.pyplot as plt
@@ -86,57 +92,7 @@ class ThrusterOptimizer1:
 
         return I_EM, I_GD, I_bit, m_bit, fI, fm, I_sp, eta, R0, Rp, EpA, I_esp, nu_max, P_max, N_shots, M_prop
 
-    def investigate_correlation(self, var: str):
-        """Function that essentially does a sensitivity study.
 
-        Takes the name of an input variable, and varies it between its min and max values from the params dictionary.
-        It keeps all other inputs as their respective guess values. Finally, it plots the results."""
-
-        x_arr = np.linspace(self.params[var][0], self.params[var][1], 100)
-        results = {key: np.zeros(100) for key in
-                   ['I_EM', 'I_GD', 'I_bit', 'm_bit', 'fI', 'fm', 'I_sp', 'eta', 'R0', 'Rp', 'EpA', 'I_esp',
-                    'nu_max', 'P_max', 'N_shots', 'M_prop', 'cost1', 'cost2', 'cost3']}
-        arr_dict = {key: self.params[key][2] for key in self.params}
-
-        for i in range(np.size(x_arr)):
-            arr_dict[var] = x_arr[i]
-            arr = np.fromiter(arr_dict.values(), dtype=float)
-            results['I_EM'][i], results['I_GD'][i], results['I_bit'][i], results['m_bit'][i], results['fI'][i], \
-                results['fm'][i], results['I_sp'][i], results['eta'][i], results['R0'], results['Rp'], \
-                results['EpA'][i], results['I_esp'][i], \
-                results['nu_max'][i], results['P_max'][i], results['N_shots'][i], results['M_prop'][
-                i] = self.get_results1(arr)
-            results['cost1'][i] = self.cost_function_both(arr)[0]
-            results['cost2'][i] = self.cost_function_both(arr)[1]
-            results['cost3'][i] = - self.cost_function_both(arr)[2]
-
-        fig, ax = plt.subplots(4, 2)
-        ax[0, 0].plot(x_arr, results["I_esp"], color="red")
-        ax[0, 0].set_ylabel(r"$I_{sp,P} \ [\mu Ns / J]$")
-        ax[0, 1].plot(x_arr, results["I_sp"], color="green")
-        ax[0, 1].set_ylabel("$I_{sp,M}$ [s]")
-        ax[1, 0].plot(x_arr, results['m_bit'], color='b')
-        ax[1, 0].set_ylabel('$m_{bit} \ [\mu g]$')
-        ax[1, 1].plot(x_arr, results['I_bit'], color='b')
-        ax[1, 1].set_ylabel('$I_{bit} \ [\mu Ns]$')
-        ax[2, 0].plot(x_arr, results['N_shots'], color='b')
-        ax[2, 0].set_ylabel('$N_{shots} \ [-]$')
-        ax[2, 1].plot(x_arr, results['M_prop'], color='b')
-        ax[2, 1].set_ylabel('$M_{prop} \ [g]$')
-        ax[3, 0].plot(x_arr, results['nu_max'], color='b')
-        ax[3, 0].set_ylabel(r'$\nu_{max} \ [Hz]$')
-        ax[3, 1].plot(x_arr, results['P_max'], color='b')
-        ax[3, 1].set_ylabel('$P_{max} \ [W]$')
-        fig.suptitle(f"Influence of varying {var}")
-
-        plt.tight_layout(rect=(0, 0, 1, 1))
-        plt.show()
-
-        plt.plot(x_arr, results['cost1'], label="I_sp")
-        plt.plot(x_arr, results['cost2'], label="I_esp")
-        plt.plot(x_arr, results['cost3'], label="Combined")
-        plt.legend()
-        plt.show()
 
     def optimize_thruster(self, mode,met):
         """Function running the optimization using SciPy.
@@ -220,17 +176,16 @@ constants = {
 }
 
 with open("different methods h(E).txt",'w') as file:
-    ha=[[],[],[]]
-    Ea=[[],[],[]]
-    Em=[[],[],[]]
+    ha=[[],[],[]] #optimal height
+    Ea=[[],[],[]] #optimal discharge energy
+    Em=[[],[],[]] #upped bound for the discharge energy
     meto=["SLSQP","trust-const","COBYQA"] #COBYQA"" not working "trust-constr" verry time consuming
     for j in range(1):
          m=meto[j]
          file.write(f"this is method {meto[j]}\n")
          for i in np.linspace(1,10,30):
              parameters["E"][1] = i
-             print(parameters["E"])
-             print(Ea,ha)
+
              optimizer = ThrusterOptimizer1(parameters, constants)
              param = optimizer.optimize_thruster("mass",m).x
              res = optimizer.get_results1(param)
@@ -242,14 +197,14 @@ with open("different methods h(E).txt",'w') as file:
      # optimizer.investigate_correlation("h")
 
     plt.subplot(1,3,1)
-    plt.plot(Em[0],ha[0],color="blue",label="SLSQP")
+    plt.plot(Em[0],ha[0],color="blue")
     plt.axvline(x=3, color='red', linestyle='--',label="energy limit")
     plt.xlabel("Maximal discharge energy [J]")
     plt.ylabel("Optimal height [cm]")
     plt.legend()
 
     plt.subplot(1,3,2)
-    plt.plot(Ea[0], ha[0], color="blue", label="SLSQP")
+    plt.plot(Ea[0], ha[0], color="blue")
     plt.xlabel("Optimal discharge energy [J]")
     plt.ylabel("Optimal height [cm]")
 
