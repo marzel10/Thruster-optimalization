@@ -61,8 +61,8 @@ class ThrusterOptimizer:
 
         m_bit = C1 * (h / w) * (E / R) * 1e3
         L_p = nu0 / np.pi * (3 / 2 + np.log((h / w) / (1 + (c / w))))  # inductance gradient
-        Int_GD = sp.integrate.quad(lambda t: (get_RLC_current(t) ** 2) ** (1 / n), 0, 100 * 1e-6, limit=1000)[0]
-
+        Int_GD = sp.integrate.quad(lambda t: (get_RLC_current(t) ** 2) ** (1 / n), 0,  10e-5, limit=1000)[0]
+        print(R, L, E,Int_GD)
         I_EM = E / R * (L_p / 2) * 1e3
         I_GD = C3 * 1e-9 * h / w ** (2 / n - 1) * Int_GD * 1e7
         I_bit = I_EM + I_GD
@@ -192,8 +192,8 @@ class ThrusterOptimizer:
 # First and second list elements are the mininum and maxinum values for the optimization,
 # and the third ones are the initial guesses (or treated as fixed values, depending on the context).
 parameters = {
-    "h": [0.01, 10, 1],  # channel height [cm]
-    "w": [1, 1, 1],  # electrode width [cm]
+    "h": [0.5, 10, 1],  # channel height [cm]
+    "w": [1.5, 1.5, 1.5],  # electrode width [cm]
     "R": [35, 35, 35],  # effective resistance [mOhm]
     "L": [100, 100, 100],  # effetive inductance [nH]
     "E": [3, 3, 3],  # stored energy [J]
