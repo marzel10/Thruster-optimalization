@@ -109,12 +109,15 @@ def get_results( h, w, R, L, E,constants=constants):
 
     EpA = E / (h * w)  # energy per propellant surface area, to avoid charring
 
+
     I_esp = I_bit / E
 
     nu_max = T_max / I_bit
     P_max = nu_max * E
     N_shots = I_tot / I_bit * 1e6
     M_prop = N_shots * m_bit * 1e-6
+
+
 
     return I_EM, I_GD, I_bit, m_bit, fI, fm, I_sp, eta, R0, Rp, EpA, I_esp, nu_max, P_max, N_shots, M_prop
 
@@ -145,8 +148,8 @@ def print_results(input, res):
 
 
 v=2000
-r=35
-l=100
+r=22
+l=45
 e=3
 n=0.8
 bounds=[(0.5,2),(0.5,1.5),(22, 55),(45,170)]  # Bounds for h[cm],w[cm],R[mOhm],L[nH] respectively
@@ -166,7 +169,7 @@ print("\n")
 
 #discrete analysis
 H=np.arange(0.5,2,0.01)
-W=np.arange(0.5,1.5,0.1)
+W=np.arange(0.5,1.5,0.01)
 H,W=np.meshgrid(H,W)
 
 
@@ -175,7 +178,7 @@ ISPP1=np.where(ISPP1>0,ISPP1,0)
 
 h_index,w_index=unravel_index(np.argmax(ISPP1),np.shape(ISPP1))
 print("Results of the discrete optimization: ")
-print_results(np.array([H[h_index, w_index],W[h_index, w_index],35,100,3]),get_results(H[h_index, w_index],W[h_index, w_index],r,l,e))#print results for the optimal configuration
+print_results(np.array([H[h_index, w_index],W[h_index, w_index],r,l,e]),get_results(H[h_index, w_index],W[h_index, w_index],r,l,e))#print results for the optimal configuration
 
 
 #ploting 3d function
